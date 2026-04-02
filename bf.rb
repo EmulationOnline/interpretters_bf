@@ -60,6 +60,4 @@ def run(code)
     puts "\nExecution time: #{'%.4f' % duration} ms"
 end
 
-progfile = "cellsize.bf"
-
-run( IO.read(progfile) )
+run( IO.read(ARGV[0]) )

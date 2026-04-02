@@ -66,9 +66,4 @@ local function run(code)
     io.flush()
 end
 
-local progfile =
-    -- 'hello.bf'
-    'cellsize.bf'
-    -- 'mandelbrot.bf'
-
-run(io.open(progfile):read"a")
+run(io.open(arg[1]):read"a")

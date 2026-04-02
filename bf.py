@@ -48,7 +48,5 @@ def run(code):
                 code_ptr = jumps[code_ptr]
         code_ptr += 1
 
-progfile = "cellsize.bf"
-
 if __name__ == "__main__":
-    run( open(progfile).read() )
+    run( open(sys.argv[1]).read() )

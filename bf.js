@@ -47,9 +47,6 @@ function run(code) {
 }
 
 const fs = require('fs');
-// const progfile = 'hello.bf'
-// const progfile = 'mandelbrot.bf'
-const progfile = 'cellsize.bf'
-const code = fs.readFileSync(progfile, 'utf8');
+const code = fs.readFileSync(process.argv[2], 'utf8');
 
 run(code);

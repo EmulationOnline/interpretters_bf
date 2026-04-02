@@ -45,6 +45,4 @@ function run($code) {
     echo "Execution time: {$duration} ms\n";
 }
 
-$progfile = "cellsize.bf";
-
-run(file_get_contents($progfile));
+run(file_get_contents($argv[1]));
