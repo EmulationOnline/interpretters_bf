@@ -1,4 +1,4 @@
-#!/usr/bin/env lua
+#!/usr/bin/env luajit
 
 local function run(code)
     -- Using 0 indexing for consistency with other impls.
@@ -17,11 +17,12 @@ local function run(code)
     local jumps = {}
     local stack_idx = 0
 
-    for i = 0, #code - 1 do
-        if code:sub(i + 1, i + 1) == '[' then
+    for i, instruction in code:gmatch"()([%[%]])" do
+        i = i-1
+        if instruction == '[' then
             stack_idx = stack_idx + 1
             stack[stack_idx] = i
-        elseif code:sub(i + 1, i + 1) == ']' then
+        else
             local start_idx = stack[stack_idx]
             stack_idx = stack_idx - 1
             jumps[start_idx] = i
@@ -44,7 +45,7 @@ local function run(code)
         elseif instruction == '.' then
             io.write(string.char(cells[cell_ptr + 1]))
             -- io.flush()
-        elseif instruction == ',' then
+        -- elseif instruction == ',' then
             -- Input not implemented for this POC
         elseif instruction == '[' then
             if cells[cell_ptr + 1] == 0 then
@@ -61,7 +62,7 @@ local function run(code)
     local end_time = os.clock()
     local duration = (end_time - start_time) * 1000
 
-    io.write(string.format("\nExecution time: %.4f ms\n", duration))
+    print(string.format("\nExecution time: %.4f ms", duration))
     io.flush()
 end
 
@@ -70,4 +71,4 @@ local progfile =
     'cellsize.bf'
     -- 'mandelbrot.bf'
 
-run(io.open(progfile, "r"):read"*a")
+run(io.open(progfile):read"a")
